@@ -1,3 +1,5 @@
+# sudo docker stack deploy -d docker-compose.yml mon
+
 version: "3.3"
 
 networks:
