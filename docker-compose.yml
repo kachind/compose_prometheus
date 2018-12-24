@@ -1,4 +1,4 @@
-# sudo docker stack deploy -d docker-compose.yml mon
+# sudo docker stack deploy -c docker-compose.yml mon
 
 version: "3.3"
 
@@ -24,6 +24,21 @@ configs:
     file: ./prometheus/rules/swarm_node.rules.yml
   task_rules:
     file: ./prometheus/rules/swarm_task.rules.yml
+etheus configuration
+
+I’ve set the Prometheus retention period to 24h and the heap size to 1GB, you can change these values in the compose file.
+
+  prometheus:
+    image: stefanprodan/swarmprom-prometheus
+    command:
+      - '-storage.local.target-heap-size=1073741824'
+      - '-storage.local.retention=24h'
+    deploy:
+      resources:
+        limits:
+          memory: 2048M
+        reservations:
+          memory: 1024M
 
 services:
   dockerd-exporter:
